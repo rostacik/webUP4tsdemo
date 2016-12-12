@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "removeComments": true,
+        "sourceMap": true,
+        "module": "commonjs",
+        "types": ["node", "is", "mocha"],
+        "lib": ["dom", "es2015.promise", "es5"]
+    }
+}
+
+//"lib": ["dom", "es2015.promise", "es5"]
