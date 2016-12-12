@@ -1,15 +1,15 @@
-# WEBtlak # 09 TypeScript demo project
+# web UP # 04 TypeScript demo project
 
 - Gulp as task manager, dedicated `buildSrc` for building TypeScript files in src folder. 
 - Task `buildTests` for building just tests. 
 - Task `buildAndRunTestsWithCoverage` for building tests with code coverage and with output to XML files for Visual Studio Team Services to pick it up.
 
 "Slides content" :
-## WEBtlak #9
+## web UP #04
 ![TS logo here](https://raw.githubusercontent.com/rostacik/webtlak09tsdemo/master/img/ts_logo.png)
-## TypeScript 2.0 + VSCode = happy dev
+## TypeScript - ESNext is now
 
-by Dušan Roštár - [www.rostacik.net](http://www.rostacik.net) / [dusan@rostacik.net](mailto:dusan@rostacik.net)
+Dušan Roštár - [www.rostacik.net](http://www.rostacik.net) / [dusan@rostacik.net](mailto:dusan@rostacik.net)
 
 What is [TypeScript](https://www.typescriptlang.org/):
 
