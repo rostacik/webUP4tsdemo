@@ -1,21 +1,21 @@
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
-var ts = require("gulp-typescript");
+var ts = require('gulp-typescript');
 var istanbul = require('gulp-istanbul');
-var tslint = require("gulp-tslint");
+var tslint = require('gulp-tslint');
 var args = require('yargs').argv;
-var sourcemaps = require("gulp-sourcemaps");
-var merge = require("merge2");
-var path = require("path");
+var sourcemaps = require('gulp-sourcemaps');
+var merge = require('merge2');
+var path = require('path');
 
 function relativeSourceRoot(file, srcSubfolder, targetDir) {
     var sourceDir = path.dirname(file.relative),
         outputDir = path.join(file.cwd, targetDir, sourceDir),
-        srcDir = file.cwd + "\\" + srcSubfolder;
+        srcDir = file.cwd + '\\' + srcSubfolder;
 
     var res = path.relative(outputDir, srcDir);
 
-    return res.replace("..\\", "");
+    return res.replace('..\\', '');
 }
 
 // run mocha tests in the ./tests folder
@@ -25,11 +25,11 @@ gulp.task('runTests', function() {
     return gulp.src(src, { read: false })
         // gulp-mocha needs filepaths so you can't have any plugins before it 
         .pipe(mocha({
-            "reporter": "mocha-jenkins-reporter",
-            "reporterOptions": {
-                "junit_report_name": "Tests",
-                "junit_report_path": "test-report.xml",
-                "junit_report_stack": 1
+            'reporter': 'mocha-jenkins-reporter',
+            'reporterOptions': {
+                'junit_report_name': 'Tests',
+                'junit_report_path': 'test-report.xml',
+                'junit_report_stack': 1
             }
         }));
 });
@@ -41,11 +41,11 @@ gulp.task('runTestsWithCoverage', ['pre-test'], function() {
     return gulp.src(src, { read: false })
         // gulp-mocha needs filepaths so you can't have any plugins before it 
         .pipe(mocha({
-            "reporter": "mocha-jenkins-reporter",
-            "reporterOptions": {
-                "junit_report_name": "Tests",
-                "junit_report_path": "test-report.xml",
-                "junit_report_stack": 1
+            'reporter': 'mocha-jenkins-reporter',
+            'reporterOptions': {
+                'junit_report_name': 'Tests',
+                'junit_report_path': 'test-report.xml',
+                'junit_report_stack': 1
             }
         }))
         // Creating the reports after tests ran 
@@ -61,21 +61,20 @@ gulp.task('runTests', function() {
     return gulp.src('./tests/**/*.Tests.js', { read: false })
         // gulp-mocha needs filepaths so you can't have any plugins before it 
         .pipe(mocha({
-            "reporter": "mocha-jenkins-reporter",
-            "reporterOptions": {
-                "junit_report_name": "Tests",
-                "junit_report_path": "test-report.xml",
-                "junit_report_stack": 1
+            'reporter': 'mocha-jenkins-reporter',
+            'reporterOptions': {
+                'junit_report_name': 'Tests',
+                'junit_report_path': 'test-report.xml',
+                'junit_report_stack': 1
             }
         }));
 });
 
 // TypeScript build for /src folder, pipes in .d.ts files from typings folder 
 gulp.task('buildSrc', function() {
-    var tsProject = ts.createProject("tsconfig.json", {
-        typescript: require("typescript")
+    var tsProject = ts.createProject('./src/tsconfig.json', {
+        typescript: require('typescript')
     });
-
 
     var tsResult = gulp
         .src(['src/**/*.ts'])
@@ -90,7 +89,41 @@ gulp.task('buildSrc', function() {
     ]);
 });
 
+gulp.task('buildAsyncStuffES5', function() {
+    var tsProject = ts.createProject('./asyncStuff/tsconfig.es5.json', {
+        typescript: require('typescript')
+    });
 
+    var tsResult = gulp
+        .src(['asyncStuff/**/*.ts'])
+        .pipe(sourcemaps.init())
+        .pipe(tsProject());
+
+    return merge([
+        tsResult.dts.pipe(gulp.dest('asyncStuff')),
+        tsResult.js.pipe(sourcemaps.write('.', {
+            sourceRoot: function(file) { return relativeSourceRoot(file, 'asyncStuff', 'asyncStuff'); }
+        })).pipe(gulp.dest('asyncStuff'))
+    ]);
+});
+
+gulp.task('buildAsyncStuffES6', function() {
+    var tsProject = ts.createProject('./asyncStuff/tsconfig.es6.json', {
+        typescript: require('typescript')
+    });
+
+    var tsResult = gulp
+        .src(['asyncStuff/**/*.ts'])
+        .pipe(sourcemaps.init())
+        .pipe(tsProject());
+
+    return merge([
+        tsResult.dts.pipe(gulp.dest('asyncStuff')),
+        tsResult.js.pipe(sourcemaps.write('.', {
+            sourceRoot: function(file) { return relativeSourceRoot(file, 'asyncStuff', 'asyncStuff'); }
+        })).pipe(gulp.dest('asyncStuff'))
+    ]);
+});
 
 // watch for any TypeScript changes
 // if a file change is detected, run the TypeScript gulp tasks
@@ -106,7 +139,7 @@ gulp.task('pre-test', function() {
         .pipe(istanbul.hookRequire());
 });
 
-//standalone ts lint task for command line
+// standalone ts lint task for command line
 gulp.task('tslint', function() {
     return gulp.src(['**/*.ts', '!**/*.d.ts', '!node_modules/**'])
         .pipe(tslint())
