@@ -52,7 +52,7 @@ gulp.task('runTestsWithCoverage', ['pre-test'], function() {
         .pipe(istanbul.writeReports({
             reporters: ['html', 'text', 'text-summary', 'cobertura']
         }))
-        // Enforce a coverage of at least 70% 
+        // Enforce a coverage of at least 50% 
         .pipe(istanbul.enforceThresholds({ thresholds: { global: 50 } }));
 });
 
