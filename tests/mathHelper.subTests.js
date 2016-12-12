@@ -63,7 +63,7 @@ describe('mathHelper tests', function() {
         it('should return 0 from 7 - 7', function() {
             var res = mathHelper.MathHelper.sub(7, 7);
 
-            assert.equal(res, 0);
+            assert.equal(res, 3);
         });
     });
 });
