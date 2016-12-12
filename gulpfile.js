@@ -53,7 +53,7 @@ gulp.task('runTestsWithCoverage', ['pre-test'], function() {
             reporters: ['html', 'text', 'text-summary', 'cobertura']
         }))
         // Enforce a coverage of at least 70% 
-        .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }));
+        .pipe(istanbul.enforceThresholds({ thresholds: { global: 50 } }));
 });
 
 // just run mocha tests in the ./tests folder
