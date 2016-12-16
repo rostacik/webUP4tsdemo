@@ -4,6 +4,6 @@
         "removeComments": true,
         "sourceMap": true,
         "module": "commonjs",
-        "types": ["node", "is", "mocha"]
+        "types": ["node", "is"]
     }
 }

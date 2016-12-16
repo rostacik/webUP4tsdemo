@@ -13,6 +13,21 @@
             "sourceMaps": true
         },
         {
+            "name": "Debug Tests",
+            "type": "node",
+            // Notice, we bypass the launcher and start the test runner directly
+            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "stopOnEntry": false,
+            // run the tests in the tests folder
+            "args": [
+                "tests/**/*.*Tests*.js"
+            ],
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "NODE_ENV": "testing"
+            }
+        } {
             "name": "Attach to Process",
             "type": "node2",
             "request": "attach",

@@ -12,4 +12,6 @@
         "**/.gitignore": true
 	}
     
+,
+"typescript.check.workspaceVersion": false
 }

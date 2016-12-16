@@ -1,5 +1,5 @@
-var assert = require("assert");
-var mathHelper = require("../src/mathHelper");
+var assert = require('assert')
+var mathHelper = require('../src/mathHelper')
 
 describe('mathHelper tests', function() {
     describe('#sub()', function() {
@@ -9,7 +9,7 @@ describe('mathHelper tests', function() {
                     mathHelper.MathHelper.sub();
                 },
                 Error
-            );
+            )
         });
 
         it('should fail if undefined parameter passed in', function() {
@@ -18,7 +18,7 @@ describe('mathHelper tests', function() {
                     mathHelper.MathHelper.sub(undefined, undefined);
                 },
                 Error
-            );
+            )
         });
 
         it('should fail if null parameter passed in', function() {
@@ -27,7 +27,22 @@ describe('mathHelper tests', function() {
                     mMathHelper.MathHelper.sub(null, null);
                 },
                 Error
-            );
+            )
+        });
+
+        it('should fail if string parameter passed in', function() {
+            assert.throws(
+                function() {
+                    mMathHelper.MathHelper.sub("0", "0");
+                },
+                Error
+            )
+        });
+
+        it('should return 0 from 0 - 0', function() {
+            var res = mathHelper.MathHelper.sub(0, 0);
+
+            assert.equal(res, 0);
         });
 
         it('should return 0 from 1 + 1', function() {
@@ -63,7 +78,7 @@ describe('mathHelper tests', function() {
         it('should return 0 from 7 - 7', function() {
             var res = mathHelper.MathHelper.sub(7, 7);
 
-            assert.equal(res, 3);
+            assert.equal(res, 0);
         });
-    });
-});
+    })
+})

@@ -30,6 +30,21 @@ describe("mathHelper tests", function() {
             );
         });
 
+        it('should fail if string parameter passed in', function() {
+            assert.throws(
+                function() {
+                    mMathHelper.MathHelper.add("0", "0");
+                },
+                Error
+            )
+        });
+
+        it("should return 0 from 0 + 0", () => {
+            var res = mathHelper.MathHelper.add(0, 0);
+
+            assert.equal(res, 0);
+        });
+
         it("should return 2 from 1 + 1", () => {
             var res = mathHelper.MathHelper.add(1, 1);
 
